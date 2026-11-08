@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>P-Tech 보고서 도우미 · ChatGPT 플러그인</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500;700&family=Noto+Sans+KR:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+:root{--bg:#f6f8f8;--surface:#ffffff;--ink:#14292a;--muted:#5b6f70;--line:#d8e2e2;--teal:#0f7c7a;--teal-soft:#e2f2f1;--tag-j:#0f7c7a;--tag-s:#3b5bdb;--tag-a:#b4560b;--warn:#a6460c;--warn-soft:#fdf0e6;
+--display:"IBM Plex Sans KR","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;--body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;--fs:16px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1717;--surface:#152222;--ink:#e3eeee;--muted:#9bb0b0;--line:#2a3b3b;--teal:#4fc4bf;--teal-soft:#173232;--tag-j:#4fc4bf;--tag-s:#8ea6ff;--tag-a:#f0a35e;--warn:#f0a35e;--warn-soft:#2b2017;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1717;--surface:#152222;--ink:#e3eeee;--muted:#9bb0b0;--line:#2a3b3b;--teal:#4fc4bf;--teal-soft:#173232;--tag-j:#4fc4bf;--tag-s:#8ea6ff;--tag-a:#f0a35e;--warn:#f0a35e;--warn-soft:#2b2017;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:var(--fs);line-height:1.7;word-break:keep-all;overflow-wrap:anywhere}
+body.big{--fs:20px}
+.wrap{max-width:960px;margin:0 auto;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.plat{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:24px}
+nav.plat a{text-decoration:none;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:.88em;background:var(--surface)}
+nav.plat a[aria-current]{color:var(--surface);background:var(--teal);border-color:var(--teal);font-weight:600}
+nav.plat .sp{flex:1}
+button{font:inherit;cursor:pointer}
+.tbtn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 12px;font-size:.85em}
+.tbtn:focus-visible,nav.plat a:focus-visible,.copy:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+header.hero{border-left:6px solid var(--teal);padding:4px 0 4px 20px;margin-bottom:32px}
+.eyebrow{font-family:var(--mono);font-size:.78em;letter-spacing:.08em;color:var(--teal);text-transform:uppercase}
+h1{font-family:var(--display);font-size:2.1em;line-height:1.25;margin:.2em 0 .3em;text-wrap:balance}
+h2{font-family:var(--display);font-size:1.35em;margin:0 0 12px;text-wrap:balance}
+.lead{color:var(--muted);max-width:62ch;margin:0}
+.ghl{margin:12px 0 0;font-size:.88em;color:var(--muted);overflow-wrap:anywhere}.ghl a{color:var(--teal);font-family:var(--mono)}
+.result{display:inline-block;margin-top:12px;background:var(--teal-soft);color:var(--teal);border-radius:6px;padding:4px 10px;font-size:.88em;font-weight:600}
+section{margin-top:36px}
+.note{color:var(--muted);font-size:.92em;max-width:70ch}
+.files{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-top:12px}
+.file{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.fname{font-family:var(--mono);font-size:.9em;font-weight:600;overflow-wrap:anywhere}
+.fwhere{font-size:.85em;color:var(--muted)}
+.tag{align-self:flex-start;font-size:.72em;font-weight:700;border-radius:4px;padding:1px 7px;border:1px solid currentColor}
+.tag.지침{color:var(--tag-j)}.tag.소스{color:var(--tag-s)}.tag.첨부{color:var(--tag-a)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+@media (max-width:760px){.cols{grid-template-columns:1fr}}
+ol.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;counter-reset:s}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+ol.steps li::before{content:counter(s);font-family:var(--display);font-weight:700;color:var(--teal);font-size:1.25em;line-height:1.4;text-align:center;border:2px solid var(--teal);border-radius:50%;width:34px;height:34px;display:grid;place-items:center}
+.st{font-weight:700;display:block}
+.sd{color:var(--ink);font-size:.95em}
+.sd b{color:var(--teal)}
+.copybox{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:10px;margin-top:12px}
+.copybox pre{margin:0;padding:16px;padding-right:96px;white-space:pre-wrap;font-family:var(--body);font-size:.92em;line-height:1.75}
+.copy{position:absolute;top:10px;right:10px;border:none;background:var(--teal);color:var(--surface);border-radius:6px;padding:6px 12px;font-size:.85em;font-weight:600}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface);margin-top:12px}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:.92em}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font-family:var(--display);background:var(--teal-soft);color:var(--ink);font-weight:600}
+tr:last-child td{border-bottom:none}
+td:first-child{font-weight:600}
+table.fail td:first-child{color:var(--warn)}
+td.me,th.me{background:var(--teal-soft)}
+.callout{background:var(--warn-soft);border-left:4px solid var(--warn);border-radius:6px;padding:10px 14px;margin-top:12px;font-size:.92em}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:16px;font-size:.85em;color:var(--muted)}
+footer a{color:var(--teal)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="plat" aria-label="플랫폼 선택"><a href="Claude_프로젝트_만들기.html">Claude 프로젝트</a><a href="ChatGPT_플러그인_만들기.html" aria-current="page">ChatGPT 플러그인</a><a href="Gemini_Gem_만들기.html">Gemini Gem</a><span class="sp"></span><button class="tbtn" id="big" type="button" aria-pressed="false">큰 글자(발표용)</button></nav>
+<header class="hero">
+<div class="eyebrow">P-Tech [서식5] 최종보고서 · 설정 안내</div>
+<h1>ChatGPT 플러그인로 최종보고서 도우미 만들기</h1>
+<p class="lead">ChatGPT의 Plugin Creator에 파일 3개를 첨부하고 제작 요청문을 보내면 &#x27;P-Tech 최종보고서 작성기&#x27; 플러그인이 만들어집니다. 이후 새 대화에서 @로 불러 씁니다.</p>
+<span class="result">플러그인으로 등록 · PDF 생성(한글 글꼴 없으면 글꼴 첨부 또는 Word로 대체)</span>
+<p class="ghl">키트 내려받기: <a href="https://github.com/eunjae-1004/ej_share/tree/main/ptech-report-kit" target="_blank" rel="noopener">https://github.com/eunjae-1004/ej_share/tree/main/ptech-report-kit</a></p>
+</header>
+<section><h2>준비물</h2>
+<p class="note">강사가 배포한 키트(또는 GitHub에서 내려받은 ZIP)의 「ChatGPT」 폴더에 있는 파일입니다. 플러그인 만들기는 ChatGPT 웹에서 Plugin Creator를 쓸 수 있는 계정에서만 됩니다. 요금제별 제공 여부는 공식 안내에 명시되어 있지 않아, 먼저 @ 입력 시 Plugin Creator가 보이는지 확인하세요.</p>
+<div class="files"><div class="file"><span class="tag 첨부">첨부</span><span class="fname">지침_ChatGPT.txt</span><span class="fwhere">Plugin Creator 대화에 첨부 – 최우선 지침</span></div><div class="file"><span class="tag 첨부">첨부</span><span class="fname">소스_통합_ChatGPT.md</span><span class="fwhere">Plugin Creator 대화에 첨부 – 참고자료</span></div><div class="file"><span class="tag 첨부">첨부</span><span class="fname">첨부_PDF생성코드.txt</span><span class="fwhere">Plugin Creator 대화에 첨부 – PDF 생성 코드</span></div><div class="file"><span class="tag 지침">지침</span><span class="fname">플러그인_제작요청문.txt</span><span class="fwhere">Plugin Creator에 보낼 요청문(아래 복사 버튼과 같음)</span></div><div class="file"><span class="tag 첨부">첨부</span><span class="fname">NanumGothic.ttf</span><span class="fwhere">한글이 깨질 때만 보고서 대화에 첨부(미리 내려받아 두기)</span></div><div class="file"><span class="tag 첨부">첨부</span><span class="fname">학습모듈(참고용) 폴더</span><span class="fwhere">필요할 때만 보고서 대화에 첨부(선택)</span></div></div><div class="callout">ChatGPT 작업 환경에는 한글 글꼴이 없는 경우가 많아 PDF 한글이 깨질 수 있습니다. 이때 안내문이 나오며, 글꼴 파일(NanumGothic.ttf)을 첨부하거나 Word 파일로 받으면 됩니다.</div></section>
+<section class="cols">
+<div><h2>① 만들기 (처음 한 번)</h2><ol class="steps"><li><div><span class="st">준비</span><span class="sd">「ChatGPT」 폴더의 <b>지침_ChatGPT.txt</b>, <b>소스_통합_ChatGPT.md</b>, <b>첨부_PDF생성코드.txt</b> 3개와 <b>플러그인_제작요청문.txt</b>를 준비합니다.</span></div></li><li><div><span class="st">Plugin Creator 선택</span><span class="sd"><b>chatgpt.com</b>에서 새 대화를 열고 입력창에 <b>@</b>를 입력한 뒤 목록에서 <b>Plugin Creator</b>를 선택합니다.</span></div></li><li><div><span class="st">파일 3개 첨부</span><span class="sd">메시지 입력창 옆 <b>첨부(+) 버튼</b>으로 파일 3개를 첨부합니다. 별도의 파일 등록 화면을 찾는 것이 아니라, <b>이 제작 대화에 파일을 첨부</b>하는 방식입니다.</span></div></li><li><div><span class="st">제작 요청</span><span class="sd">아래 <b>[제작 요청문]</b>을 복사해 붙여 넣고 보냅니다. Plugin Creator가 질문하면 답하고, 이름·설명·지침·포함 파일을 검토합니다.</span></div></li><li><div><span class="st">등록 결과 확인</span><span class="sd">생성된 플러그인 링크와 <b>포함 자료(파일 3개)</b>를 확인합니다. 설치 안내가 나오면 <b>설치</b>합니다.</span></div></li><li><div><span class="st">새 대화에서 시험</span><span class="sd">새 대화에서 <b>@</b>로 만든 플러그인을 선택하고 <b>시작</b>을 입력합니다. 설명과 복사용 입력양식이 분리되는지, 기본정보·과목이 정확히 반영되는지, 초안 수정과 PDF 출력까지 되는지 확인합니다.</span></div></li></ol></div>
+<div><h2>② 보고서 작성 (매번)</h2><ol class="steps"><li><div><span class="st">플러그인 부르기</span><span class="sd">새 대화 입력창에 <b>@</b>를 입력하고 <b>P-Tech 최종보고서 작성기</b>를 선택한 뒤 <b>시작</b>이라고 입력합니다.</span></div></li><li><div><span class="st">입력양식 채우기</span><span class="sd">안내문 아래 코드블록의 입력양식을 복사해 붙여 넣고 채웁니다. 성명과 교과목은 필수, 나머지는 비워 둬도 됩니다.</span></div></li><li><div><span class="st">사진 첨부(선택)</span><span class="sd">사진이 있으면 <b>+</b>로 첨부합니다(최대 4장). 얼굴이나 회사 기밀이 보이는 사진은 피합니다.</span></div></li><li><div><span class="st">초안 확인</span><span class="sd">초안을 읽고 고칠 곳을 말로 요청합니다. 예: "설명문체로", "수준 상으로"</span></div></li><li><div><span class="st">PDF 받기</span><span class="sd"><b>PDF로 만들어 주세요</b>라고 입력하고 내려받기 링크로 PDF를 받습니다. 한글 글꼴 안내가 나오면 아래 표대로 진행합니다.</span></div></li></ol></div>
+</section>
+<section><h2>제작 요청문</h2><p class="note">Plugin Creator 대화에 파일 3개를 첨부한 뒤, 아래 요청문을 그대로 복사해 보내세요.</p>
+<div class="copybox"><button class="copy" type="button" data-target="jc">복사</button><pre id="jc">첨부한 파일 3개를 포함해
+&#x27;P-Tech 최종보고서 작성기&#x27; 플러그인을 만들어줘.
+지침_ChatGPT.txt를 최우선으로 적용하고,
+소스_통합_ChatGPT.md는 참고자료로,
+첨부_PDF생성코드.txt는 PDF 생성용 코드로 포함해줘.
+초안을 먼저 보여주고 사용자가 &#x27;PDF로 만들어 주세요&#x27;라고
+요청한 후에만 PDF를 생성하도록 해줘.
+등록 후 실제 작동 여부를 확인하고,
+아직 확인되지 않은 기능은 구분해서 알려줘.</pre></div></section>
+<section><h2>처리가 안 될 때</h2><p class="note">아래 상황이 생기면 도우미가 안내문을 보여 줍니다. 안내대로 하면 됩니다.</p>
+<div class="tw"><table class="fail"><thead><tr><th>상황</th><th>나오는 안내</th><th>사용자가 할 일</th></tr></thead><tbody><tr><td>@를 눌러도 Plugin Creator가 없을 때</td><td>(만들기 단계 문제)</td><td>계정·워크스페이스에서 플러그인 만들기가 꺼져 있을 수 있음 – 관리자 확인 또는 Claude·Gemini 방식 사용</td></tr><tr><td>PDF 코드 파일을 찾지 못할 때</td><td>「첨부_PDF생성코드.txt」를 첨부해 달라는 안내</td><td>보고서 대화에 + 버튼으로 코드 파일 첨부 후 다시 요청</td></tr><tr><td>한글 글꼴이 없을 때(가장 흔함)</td><td>글꼴 첨부 또는 Word 선택 안내</td><td>NanumGothic.ttf 첨부 후 &quot;PDF로 다시 만들어 주세요&quot;, 또는 &quot;Word로 만들어 주세요&quot;</td></tr><tr><td>Word로 대체된 경우</td><td>Word 파일과 PDF 저장 방법 안내</td><td>Word에서 파일 → 다른 이름으로 저장 → PDF</td></tr><tr><td>사진이 열리지 않을 때</td><td>JPG로 다시 첨부하라는 안내</td><td>JPG로 저장(또는 캡처) 후 재첨부, 또는 &quot;사진 빼고 만들어 주세요&quot;</td></tr><tr><td>파일을 더 올릴 수 없을 때</td><td>업로드 한도 안내</td><td>사진을 줄이거나 다음 날 다시 시도(사진 없이도 작성 가능)</td></tr></tbody></table></div></section>
+<section><h2>세 플랫폼 비교</h2><div class="tw"><table><thead><tr><th>구분</th><th class="">Claude 프로젝트</th><th class="me">ChatGPT 플러그인</th><th class="">Gemini Gem</th></tr></thead><tbody><tr><td>결과물</td><td class="">PDF 파일 자동 생성</td><td class="me">PDF 생성(한글 글꼴 없으면 Word로 대체)</td><td class="">고정 양식 HTML → 브라우저에서 PDF 저장</td></tr><tr><td>사진 넣기</td><td class="">자동 배치</td><td class="me">자동 배치</td><td class="">Word·Google 문서로 옮겨 직접 삽입</td></tr><tr><td>준비 파일</td><td class="">지침 + 소스 5개 + 첨부 코드</td><td class="me">파일 3개 + 제작 요청문 (+ 글꼴)</td><td class="">지침 + 소스 6개</td></tr><tr><td>무료 계정 주의</td><td class="">사용량 한도, 프로젝트 5개</td><td class="me">Plugin Creator 사용 가능 여부 먼저 확인</td><td class="">Gem 만들기는 PC 웹에서만</td></tr><tr><td>추천</td><td class="">기본 권장(가장 단계가 적음)</td><td class="me">ChatGPT를 이미 쓰는 사용자</td><td class="">Google 계정에 익숙한 사용자</td></tr></tbody></table></div></section>
+<footer>키트 내려받기(GitHub): <a href="https://github.com/eunjae-1004/ej_share/tree/main/ptech-report-kit" target="_blank" rel="noopener">https://github.com/eunjae-1004/ej_share/tree/main/ptech-report-kit</a><br>메뉴 이름과 무료 계정 제한은 2026년 11월 8일 기준 공개 자료로 확인했으며, 화면이나 정책은 바뀔 수 있습니다.<br>참고: <a href="https://learn.chatgpt.com/docs/build-plugins" target="_blank" rel="noopener">ChatGPT – 플러그인 만들기(Build plugins)</a> · <a href="https://learn.chatgpt.com/docs/plugins" target="_blank" rel="noopener">ChatGPT – 플러그인 안내</a> · <a href="https://extrememanual.net/57766" target="_blank" rel="noopener">ChatGPT PDF 한글 깨짐 해결</a></footer>
+</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(b){b.addEventListener('click',function(){var t=document.getElementById(b.dataset.target).innerText;var done=function(){b.textContent='복사됨';setTimeout(function(){b.textContent='복사'},1600)};
+try{navigator.clipboard.writeText(t).then(done,function(){sel(b.dataset.target)})}catch(e){sel(b.dataset.target)}})});
+function sel(id){var r=document.createRange();r.selectNodeContents(document.getElementById(id));var s=window.getSelection();s.removeAllRanges();s.addRange(r)}
+var bb=document.getElementById('big');function setBig(on){document.body.classList.toggle('big',on);bb.setAttribute('aria-pressed',on);bb.textContent=on?'기본 글자':'큰 글자(발표용)'}
+try{setBig(localStorage.getItem('ptech-big')==='1')}catch(e){}
+bb.addEventListener('click',function(){var on=!document.body.classList.contains('big');setBig(on);try{localStorage.setItem('ptech-big',on?'1':'0')}catch(e){}});
+</script>
+</body>
+</html>

@@ -15,7 +15,7 @@
 | 사용할 AI | 내려받기 | 특징 |
 |---|---|---|
 | **Claude 프로젝트 (권장)** | [ptech_claude_kit.zip](https://github.com/eunjae-1004/ej_share/raw/main/ptech-report-kit/download/ptech_claude_kit.zip) | PDF 자동 생성, 사진 자동 배치 |
-| ChatGPT 프로젝트 | [ptech_chatgpt_kit.zip](https://github.com/eunjae-1004/ej_share/raw/main/ptech-report-kit/download/ptech_chatgpt_kit.zip) | PDF 생성(한글 글꼴이 없으면 글꼴 첨부 또는 Word로 대체) |
+| ChatGPT 플러그인 | [ptech_chatgpt_kit.zip](https://github.com/eunjae-1004/ej_share/raw/main/ptech-report-kit/download/ptech_chatgpt_kit.zip) | Plugin Creator로 제작, PDF 생성(한글 글꼴이 없으면 글꼴 첨부 또는 Word로 대체) |
 | Gemini Gem | [ptech_gemini_kit.zip](https://github.com/eunjae-1004/ej_share/raw/main/ptech-report-kit/download/ptech_gemini_kit.zip) | Canvas → Google 문서 → PDF 저장 |
 | 전체 | [ptech_all_kit.zip](https://github.com/eunjae-1004/ej_share/raw/main/ptech-report-kit/download/ptech_all_kit.zip) | 세 플랫폼 키트, 안내서, 샘플 보고서 6부, 학습모듈 원본 2종 |
 
@@ -24,8 +24,9 @@
 ## 2. 사용 순서
 
 1. ZIP 압축을 풀고 `안내` 폴더의 HTML 안내서를 더블클릭해 엽니다.
-2. 안내서대로 AI에 프로젝트(또는 Gem)를 만들고 **지침**과 **소스 파일**을 넣습니다. (처음 한 번)
-3. 새 채팅에서 **시작**이라고 입력하면 입력양식이 나옵니다.
+2. 안내서대로 AI에 프로젝트·플러그인·Gem 중 하나를 만들고 **지침**과 **소스 파일**을 넣습니다. (처음 한 번)
+   - ChatGPT는 새 대화에서 `@` → **Plugin Creator**를 고르고, 파일 3개를 그 대화에 첨부한 뒤 `플러그인_제작요청문.txt` 내용을 보냅니다.
+3. 새 채팅에서(ChatGPT는 `@`로 플러그인 선택 후) **시작**이라고 입력하면 입력양식이 나옵니다.
 4. 입력양식을 채워 보내고, 초안을 확인한 뒤 **PDF로 만들어 주세요**(Gemini는 **보고서로 만들어 주세요**)라고 입력합니다.
 
 ## 3. 폴더 구성
@@ -33,7 +34,7 @@
 | 폴더 | 내용 |
 |---|---|
 | `Claude/` | 지침, 소스1~5, 첨부_PDF생성코드, 학습모듈(참고용) |
-| `ChatGPT/` | 지침, 통합 소스 1개, 첨부_PDF생성코드, 학습모듈(참고용) |
+| `ChatGPT/` | 지침, 통합 소스 1개, 첨부_PDF생성코드, 플러그인_제작요청문, 학습모듈(참고용) |
 | `Gemini/` | 지침, 소스1(Gemini용)~5, 소스6(보고서 양식), 학습모듈(참고용) |
 | `guide/` | 플랫폼별 HTML 안내서, 설정안내서, 작성스타일·업종별 예시 |
 | `samples/` | 교과목별 샘플 보고서 PDF 3부씩, Gemini 양식 예시 1부 |
