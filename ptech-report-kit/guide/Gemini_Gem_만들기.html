@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>P-Tech 보고서 도우미 · Gemini Gem</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500;700&family=Noto+Sans+KR:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+:root{--bg:#f6f8f8;--surface:#ffffff;--ink:#14292a;--muted:#5b6f70;--line:#d8e2e2;--teal:#0f7c7a;--teal-soft:#e2f2f1;--tag-j:#0f7c7a;--tag-s:#3b5bdb;--tag-a:#b4560b;--warn:#a6460c;--warn-soft:#fdf0e6;
+--display:"IBM Plex Sans KR","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;--body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;--fs:16px}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1717;--surface:#152222;--ink:#e3eeee;--muted:#9bb0b0;--line:#2a3b3b;--teal:#4fc4bf;--teal-soft:#173232;--tag-j:#4fc4bf;--tag-s:#8ea6ff;--tag-a:#f0a35e;--warn:#f0a35e;--warn-soft:#2b2017;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0e1717;--surface:#152222;--ink:#e3eeee;--muted:#9bb0b0;--line:#2a3b3b;--teal:#4fc4bf;--teal-soft:#173232;--tag-j:#4fc4bf;--tag-s:#8ea6ff;--tag-a:#f0a35e;--warn:#f0a35e;--warn-soft:#2b2017;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:var(--fs);line-height:1.7;word-break:keep-all;overflow-wrap:anywhere}
+body.big{--fs:20px}
+.wrap{max-width:960px;margin:0 auto;padding-block:20px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+nav.plat{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:24px}
+nav.plat a{text-decoration:none;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:.88em;background:var(--surface)}
+nav.plat a[aria-current]{color:var(--surface);background:var(--teal);border-color:var(--teal);font-weight:600}
+nav.plat .sp{flex:1}
+button{font:inherit;cursor:pointer}
+.tbtn{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 12px;font-size:.85em}
+.tbtn:focus-visible,nav.plat a:focus-visible,.copy:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+header.hero{border-left:6px solid var(--teal);padding:4px 0 4px 20px;margin-bottom:32px}
+.eyebrow{font-family:var(--mono);font-size:.78em;letter-spacing:.08em;color:var(--teal);text-transform:uppercase}
+h1{font-family:var(--display);font-size:2.1em;line-height:1.25;margin:.2em 0 .3em;text-wrap:balance}
+h2{font-family:var(--display);font-size:1.35em;margin:0 0 12px;text-wrap:balance}
+.lead{color:var(--muted);max-width:62ch;margin:0}
+.result{display:inline-block;margin-top:12px;background:var(--teal-soft);color:var(--teal);border-radius:6px;padding:4px 10px;font-size:.88em;font-weight:600}
+section{margin-top:36px}
+.note{color:var(--muted);font-size:.92em;max-width:70ch}
+.files{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-top:12px}
+.file{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:flex;flex-direction:column;gap:4px;min-width:0}
+.fname{font-family:var(--mono);font-size:.9em;font-weight:600;overflow-wrap:anywhere}
+.fwhere{font-size:.85em;color:var(--muted)}
+.tag{align-self:flex-start;font-size:.72em;font-weight:700;border-radius:4px;padding:1px 7px;border:1px solid currentColor}
+.tag.지침{color:var(--tag-j)}.tag.소스{color:var(--tag-s)}.tag.첨부{color:var(--tag-a)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+@media (max-width:760px){.cols{grid-template-columns:1fr}}
+ol.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;counter-reset:s}
+ol.steps li{counter-increment:s;display:grid;grid-template-columns:38px 1fr;gap:12px;align-items:start;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+ol.steps li::before{content:counter(s);font-family:var(--display);font-weight:700;color:var(--teal);font-size:1.25em;line-height:1.4;text-align:center;border:2px solid var(--teal);border-radius:50%;width:34px;height:34px;display:grid;place-items:center}
+.st{font-weight:700;display:block}
+.sd{color:var(--ink);font-size:.95em}
+.sd b{color:var(--teal)}
+.copybox{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:10px;margin-top:12px}
+.copybox pre{margin:0;padding:16px;padding-right:96px;white-space:pre-wrap;font-family:var(--body);font-size:.92em;line-height:1.75}
+.copy{position:absolute;top:10px;right:10px;border:none;background:var(--teal);color:var(--surface);border-radius:6px;padding:6px 12px;font-size:.85em;font-weight:600}
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface);margin-top:12px}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:.92em}
+th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--line)}
+th{font-family:var(--display);background:var(--teal-soft);color:var(--ink);font-weight:600}
+tr:last-child td{border-bottom:none}
+td:first-child{font-weight:600}
+table.fail td:first-child{color:var(--warn)}
+td.me,th.me{background:var(--teal-soft)}
+.callout{background:var(--warn-soft);border-left:4px solid var(--warn);border-radius:6px;padding:10px 14px;margin-top:12px;font-size:.92em}
+footer{margin-top:40px;border-top:1px solid var(--line);padding-top:16px;font-size:.85em;color:var(--muted)}
+footer a{color:var(--teal)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="plat" aria-label="플랫폼 선택"><a href="Claude_프로젝트_만들기.html">Claude 프로젝트</a><a href="ChatGPT_프로젝트_만들기.html">ChatGPT 프로젝트</a><a href="Gemini_Gem_만들기.html" aria-current="page">Gemini Gem</a><span class="sp"></span><button class="tbtn" id="big" type="button" aria-pressed="false">큰 글자(발표용)</button></nav>
+<header class="hero">
+<div class="eyebrow">P-Tech [서식5] 최종보고서 · 설정 안내</div>
+<h1>Gemini Gem로 최종보고서 도우미 만들기</h1>
+<p class="lead">Gemini Gem에 지침과 소스를 넣어 두면, 완성 보고서를 Canvas에 만들어 Google 문서로 내보낸 뒤 PDF로 저장합니다.</p>
+<span class="result">Canvas → Google 문서 → PDF 저장 · 사진은 문서에서 직접 넣기</span>
+</header>
+<section><h2>준비물</h2>
+<p class="note">강사가 배포한 키트(또는 GitHub에서 내려받은 ZIP)의 「Gemini」 폴더에 있는 파일입니다. Google 계정이면 무료로 Gem을 만들 수 있습니다. Gem 만들기·수정은 PC 웹(gemini.google.com)에서만 되고, 휴대폰 앱에서는 만든 Gem으로 대화만 할 수 있습니다.</p>
+<div class="files"><div class="file"><span class="tag 지침">지침</span><span class="fname">지침_Gemini.txt</span><span class="fwhere">요청사항(Instructions) 칸에 붙여넣기</span></div><div class="file"><span class="tag 소스">소스</span><span class="fname">소스1_작성규칙_Gemini.md</span><span class="fwhere">지식(Knowledge) 파일</span></div><div class="file"><span class="tag 소스">소스</span><span class="fname">소스2_작성스타일.md</span><span class="fwhere">지식(Knowledge) 파일</span></div><div class="file"><span class="tag 소스">소스</span><span class="fname">소스3_업종별예시문.md</span><span class="fwhere">지식(Knowledge) 파일</span></div><div class="file"><span class="tag 소스">소스</span><span class="fname">소스4_교과목_자재관리.md</span><span class="fwhere">지식(Knowledge) 파일</span></div><div class="file"><span class="tag 소스">소스</span><span class="fname">소스5_교과목_현장제어.md</span><span class="fwhere">지식(Knowledge) 파일</span></div></div><div class="callout">Gemini는 PDF 파일을 직접 만들지 못합니다. 보고서는 Canvas에 완성되고, Google 문서로 내보낸 뒤 PDF로 저장합니다.</div></section>
+<section class="cols">
+<div><h2>① 만들기 (처음 한 번)</h2><ol class="steps"><li><div><span class="st">로그인</span><span class="sd">PC에서 <b>gemini.google.com</b>에 접속해 Google 계정으로 로그인합니다.</span></div></li><li><div><span class="st">새 Gem</span><span class="sd">왼쪽 메뉴에서 <b>Gem 탐색(Explore Gems)</b> → <b>새 Gem(New Gem)</b>을 누릅니다.</span></div></li><li><div><span class="st">이름 입력</span><span class="sd">이름(Name)에 <b>P-Tech 최종보고서</b>를 입력합니다.</span></div></li><li><div><span class="st">지침 넣기</span><span class="sd"><b>요청사항(Instructions)</b> 칸에 아래 [지침 문구]를 붙여 넣습니다.</span></div></li><li><div><span class="st">소스 올리기</span><span class="sd"><b>지식(Knowledge)</b>의 <b>파일 추가</b>로 소스 파일 5개를 올립니다.</span></div></li><li><div><span class="st">저장</span><span class="sd">오른쪽 미리보기는 저장되지 않습니다. 반드시 <b>저장(Save)</b>을 누릅니다.</span></div></li></ol></div>
+<div><h2>② 보고서 작성 (매번)</h2><ol class="steps"><li><div><span class="st">채팅 시작</span><span class="sd">Gem 목록에서 <b>P-Tech 최종보고서</b>를 열고 <b>시작</b>이라고 입력합니다. 안내문과 입력양식이 나옵니다.</span></div></li><li><div><span class="st">입력양식 채우기</span><span class="sd">입력양식을 복사해 붙여 넣고 채웁니다. 사진이 있으면 함께 보내면 넣을 자리를 정해 줍니다.</span></div></li><li><div><span class="st">초안 확인</span><span class="sd">초안을 읽고 고칠 곳을 말로 요청합니다.</span></div></li><li><div><span class="st">보고서 만들기</span><span class="sd"><b>보고서로 만들어 주세요</b>라고 입력하면 Canvas(캔버스)에 완성 보고서가 만들어집니다.</span></div></li><li><div><span class="st">Google 문서로 내보내기</span><span class="sd">캔버스 오른쪽 위 <b>공유 및 내보내기 → Docs로 내보내기</b>를 누릅니다.</span></div></li><li><div><span class="st">PDF 저장</span><span class="sd">Google 문서의 [그림 넣을 자리]에 <b>삽입 → 이미지</b>로 사진을 넣고, <b>파일 → 다운로드 → PDF 문서</b>로 저장합니다.</span></div></li></ol></div>
+</section>
+<section><h2>지침 문구</h2><p class="note">아래 내용을 그대로 복사해 요청사항(Instructions) 칸에 붙여 넣으세요.</p>
+<div class="copybox"><button class="copy" type="button" data-target="jc">복사</button><pre id="jc">너는 원주폴리텍대학 P-Tech 학습자의 「[서식5] 최종보고서」 작성 도우미다.
+
+1. 첫 메시지에는 지식 파일 「소스1_작성규칙_Gemini.md」의 [시작 안내문]과 입력양식을 보여 준다.
+2. 소스1(작성 절차·원칙·보고서 문서 만들기·처리가 안 될 때 안내문), 소스2(작성 스타일), 소스3(업종별 예시문)을 반드시 그대로 따른다.
+3. 교과목 자료는 학습자가 고른 과목만 쓴다: 자재관리 → 소스4, 현장제어 → 소스5.
+4. 초안을 먼저 보여 주고, &quot;보고서로 만들어 주세요&quot;라는 승인 후에만 Canvas에 완성 문서를 만든다.
+5. 학습자가 말하지 않은 수치·회사 사실은 지어내지 않는다.
+6. 학습자는 AI가 처음인 재직자다. 쉬운 말로 짧게 안내하고, 기술 설명은 하지 않는다.</pre></div></section>
+<section><h2>처리가 안 될 때</h2><p class="note">아래 상황이 생기면 도우미가 안내문을 보여 줍니다. 안내대로 하면 됩니다.</p>
+<div class="tw"><table class="fail"><thead><tr><th>상황</th><th>나오는 안내</th><th>학습자가 할 일</th></tr></thead><tbody><tr><td>캔버스가 열리지 않을 때</td><td>채팅에 보고서를 쓰고 내보내기 방법 안내</td><td>답변 아래 공유 및 내보내기 → Docs로 내보내기, 없으면 복사해 한글·Word에 붙여넣기</td></tr><tr><td>보고서가 중간에 끊길 때</td><td>이어서 쓰라는 안내</td><td>&quot;이어서 써 주세요&quot; 입력</td></tr><tr><td>Docs로 내보내기가 안 될 때</td><td>계정·관리자 설정 확인 안내</td><td>Google 로그인 확인, 안 되면 복사해 한글·Word에서 PDF 저장</td></tr><tr><td>사진이 안 들어간 경우</td><td>정상 동작(Gemini는 문서에 사진을 직접 넣지 못함)</td><td>Google 문서의 [그림 넣을 자리]에 삽입 → 이미지</td></tr></tbody></table></div></section>
+<section><h2>세 플랫폼 비교</h2><div class="tw"><table><thead><tr><th>구분</th><th class="">Claude 프로젝트</th><th class="">ChatGPT 프로젝트</th><th class="me">Gemini Gem</th></tr></thead><tbody><tr><td>결과물</td><td class="">PDF 파일 자동 생성</td><td class="">PDF 생성(한글 글꼴 없으면 Word로 대체)</td><td class="me">Google 문서로 내보낸 뒤 PDF로 저장</td></tr><tr><td>사진 넣기</td><td class="">자동 배치</td><td class="">자동 배치</td><td class="me">Google 문서에서 직접 삽입</td></tr><tr><td>준비 파일</td><td class="">지침 + 소스 5개 + 첨부 코드</td><td class="">지침 + 파일 2개 (+ 글꼴)</td><td class="me">지침 + 소스 5개</td></tr><tr><td>무료 계정 주의</td><td class="">사용량 한도, 프로젝트 5개</td><td class="">프로젝트 파일 수·하루 업로드 제한(확인 필요)</td><td class="me">Gem 만들기는 PC 웹에서만</td></tr><tr><td>추천</td><td class="">기본 권장(가장 단계가 적음)</td><td class="">ChatGPT를 이미 쓰는 학습자</td><td class="me">Google 문서에 익숙한 학습자</td></tr></tbody></table></div></section>
+<footer>메뉴 이름과 무료 계정 제한은 2026년 11월 8일 기준 공개 자료로 확인했으며, 화면이나 정책은 바뀔 수 있습니다.<br>참고: <a href="https://support.google.com/gemini/answer/15235603" target="_blank" rel="noopener">Gemini 도움말 – Gem 시작하기</a> · <a href="https://www.computerworld.com/article/4082627/how-to-create-documents-and-more-with-gemini-canvas.html" target="_blank" rel="noopener">Gemini Canvas 사용법(Computerworld)</a></footer>
+</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(b){b.addEventListener('click',function(){var t=document.getElementById(b.dataset.target).innerText;var done=function(){b.textContent='복사됨';setTimeout(function(){b.textContent='복사'},1600)};
+try{navigator.clipboard.writeText(t).then(done,function(){sel(b.dataset.target)})}catch(e){sel(b.dataset.target)}})});
+function sel(id){var r=document.createRange();r.selectNodeContents(document.getElementById(id));var s=window.getSelection();s.removeAllRanges();s.addRange(r)}
+var bb=document.getElementById('big');function setBig(on){document.body.classList.toggle('big',on);bb.setAttribute('aria-pressed',on);bb.textContent=on?'기본 글자':'큰 글자(발표용)'}
+try{setBig(localStorage.getItem('ptech-big')==='1')}catch(e){}
+bb.addEventListener('click',function(){var on=!document.body.classList.contains('big');setBig(on);try{localStorage.setItem('ptech-big',on?'1':'0')}catch(e){}});
+</script>
+</body>
+</html>
