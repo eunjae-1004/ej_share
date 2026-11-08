@@ -28,6 +28,7 @@ header.hero{border-left:6px solid var(--teal);padding:4px 0 4px 20px;margin-bott
 h1{font-family:var(--display);font-size:2.1em;line-height:1.25;margin:.2em 0 .3em;text-wrap:balance}
 h2{font-family:var(--display);font-size:1.35em;margin:0 0 12px;text-wrap:balance}
 .lead{color:var(--muted);max-width:62ch;margin:0}
+.dl{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}.dlbtn{display:inline-block;text-decoration:none;background:var(--teal);color:var(--surface);border-radius:8px;padding:8px 14px;font-weight:600;font-size:.92em}.dlbtn.sub{background:var(--surface);color:var(--teal);border:1px solid var(--teal)}.dlbtn:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 .ghl{margin:12px 0 0;font-size:.88em;color:var(--muted);overflow-wrap:anywhere}.ghl a{color:var(--teal);font-family:var(--mono)}
 .result{display:inline-block;margin-top:12px;background:var(--teal-soft);color:var(--teal);border-radius:6px;padding:4px 10px;font-size:.88em;font-weight:600}
 section{margin-top:36px}
@@ -37,7 +38,7 @@ section{margin-top:36px}
 .fname{font-family:var(--mono);font-size:.9em;font-weight:600;overflow-wrap:anywhere}
 .fwhere{font-size:.85em;color:var(--muted)}
 .tag{align-self:flex-start;font-size:.72em;font-weight:700;border-radius:4px;padding:1px 7px;border:1px solid currentColor}
-.tag.지침{color:var(--tag-j)}.tag.소스{color:var(--tag-s)}.tag.첨부{color:var(--tag-a)}
+.tag.지침{color:var(--tag-j)}.tag.소스{color:var(--tag-s)}.tag.첨부{color:var(--tag-a)}.tag.요청문{color:var(--tag-s)}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}
 @media (max-width:760px){.cols{grid-template-columns:1fr}}
 ol.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;counter-reset:s}
@@ -68,10 +69,11 @@ footer a{color:var(--teal)}
 <nav class="plat" aria-label="플랫폼 선택"><a href="Claude_프로젝트_만들기.html">Claude 프로젝트</a><a href="ChatGPT_플러그인_만들기.html">ChatGPT 플러그인</a><a href="Gemini_Gem_만들기.html" aria-current="page">Gemini Gem</a><span class="sp"></span><button class="tbtn" id="big" type="button" aria-pressed="false">큰 글자(발표용)</button></nav>
 <header class="hero">
 <div class="eyebrow">P-Tech [서식5] 최종보고서 · 설정 안내</div>
-<h1>Gemini Gem로 최종보고서 도우미 만들기</h1>
+<h1>Gemini Gem으로 최종보고서 도우미 만들기</h1>
 <p class="lead">Gemini Gem에 지침과 소스(보고서 양식 포함)를 넣어 두면, 정해진 [서식5] 양식으로 보고서를 만든 뒤 브라우저에서 PDF로 저장합니다.</p>
 <span class="result">고정 양식(HTML) 보고서 → 브라우저에서 PDF 저장 · 사진은 문서로 옮겨 넣기</span>
-<p class="ghl">키트 내려받기: <a href="https://github.com/eunjae-1004/ej_share/tree/main/ptech-report-kit" target="_blank" rel="noopener">https://github.com/eunjae-1004/ej_share/tree/main/ptech-report-kit</a></p>
+<p class="dl"><a class="dlbtn" href="https://github.com/eunjae-1004/ej_share/raw/main/ptech-report-kit/download/ptech_gemini_kit.zip">Gemini Gem 키트 ZIP 내려받기</a><a class="dlbtn sub" href="https://github.com/eunjae-1004/ej_share/raw/main/ptech-report-kit/download/ptech_all_kit.zip">전체 키트 ZIP</a></p>
+<p class="ghl">GitHub 저장소: <a href="https://github.com/eunjae-1004/ej_share/tree/main/ptech-report-kit" target="_blank" rel="noopener">https://github.com/eunjae-1004/ej_share/tree/main/ptech-report-kit</a></p>
 </header>
 <section><h2>준비물</h2>
 <p class="note">강사가 배포한 키트(또는 GitHub에서 내려받은 ZIP)의 「Gemini」 폴더에 있는 파일입니다. Google 계정이면 무료로 Gem을 만들 수 있습니다. Gem 만들기·수정은 PC 웹(gemini.google.com)에서만 되고, 휴대폰 앱에서는 만든 Gem으로 대화만 할 수 있습니다.</p>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>P-Tech 보고서 도우미 · Claude 프로젝트</title>
+<title>P-Tech 보고서 도우미 · 설정 안내</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@500;700&family=Noto+Sans+KR:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
@@ -28,6 +28,7 @@ header.hero{border-left:6px solid var(--teal);padding:4px 0 4px 20px;margin-bott
 h1{font-family:var(--display);font-size:2.1em;line-height:1.25;margin:.2em 0 .3em;text-wrap:balance}
 h2{font-family:var(--display);font-size:1.35em;margin:0 0 12px;text-wrap:balance}
 .lead{color:var(--muted);max-width:62ch;margin:0}
+.dl{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}.dlbtn{display:inline-block;text-decoration:none;background:var(--teal);color:var(--surface);border-radius:8px;padding:8px 14px;font-weight:600;font-size:.92em}.dlbtn.sub{background:var(--surface);color:var(--teal);border:1px solid var(--teal)}.dlbtn:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 .ghl{margin:12px 0 0;font-size:.88em;color:var(--muted);overflow-wrap:anywhere}.ghl a{color:var(--teal);font-family:var(--mono)}
 .result{display:inline-block;margin-top:12px;background:var(--teal-soft);color:var(--teal);border-radius:6px;padding:4px 10px;font-size:.88em;font-weight:600}
 section{margin-top:36px}
@@ -37,7 +38,7 @@ section{margin-top:36px}
 .fname{font-family:var(--mono);font-size:.9em;font-weight:600;overflow-wrap:anywhere}
 .fwhere{font-size:.85em;color:var(--muted)}
 .tag{align-self:flex-start;font-size:.72em;font-weight:700;border-radius:4px;padding:1px 7px;border:1px solid currentColor}
-.tag.지침{color:var(--tag-j)}.tag.소스{color:var(--tag-s)}.tag.첨부{color:var(--tag-a)}
+.tag.지침{color:var(--tag-j)}.tag.소스{color:var(--tag-s)}.tag.첨부{color:var(--tag-a)}.tag.요청문{color:var(--tag-s)}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}
 @media (max-width:760px){.cols{grid-template-columns:1fr}}
 ol.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px;counter-reset:s}
@@ -71,7 +72,8 @@ footer a{color:var(--teal)}
 <h1>Claude 프로젝트로 최종보고서 도우미 만들기</h1>
 <p class="lead">Claude 프로젝트에 지침과 소스를 넣어 두면, 사용자는 입력양식만 채워 [서식5] 최종보고서 PDF를 바로 받을 수 있습니다.</p>
 <span class="result">PDF 자동 생성 · 사진 자동 배치</span>
-<p class="ghl">키트 내려받기: <a href="https://github.com/eunjae-1004/ej_share/tree/main/ptech-report-kit" target="_blank" rel="noopener">https://github.com/eunjae-1004/ej_share/tree/main/ptech-report-kit</a></p>
+<p class="dl"><a class="dlbtn" href="https://github.com/eunjae-1004/ej_share/raw/main/ptech-report-kit/download/ptech_claude_kit.zip">Claude 프로젝트 키트 ZIP 내려받기</a><a class="dlbtn sub" href="https://github.com/eunjae-1004/ej_share/raw/main/ptech-report-kit/download/ptech_all_kit.zip">전체 키트 ZIP</a></p>
+<p class="ghl">GitHub 저장소: <a href="https://github.com/eunjae-1004/ej_share/tree/main/ptech-report-kit" target="_blank" rel="noopener">https://github.com/eunjae-1004/ej_share/tree/main/ptech-report-kit</a></p>
 </header>
 <section><h2>준비물</h2>
 <p class="note">강사가 배포한 키트(또는 GitHub에서 내려받은 ZIP)의 「Claude」 폴더에 있는 파일입니다. claude.ai 무료 계정으로 만들 수 있습니다. 무료 계정은 프로젝트를 최대 5개까지 만들 수 있고, 사용량 한도가 있습니다.</p>
