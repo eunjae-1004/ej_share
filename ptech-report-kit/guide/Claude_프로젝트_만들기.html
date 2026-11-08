@@ -28,6 +28,7 @@ header.hero{border-left:6px solid var(--teal);padding:4px 0 4px 20px;margin-bott
 h1{font-family:var(--display);font-size:2.1em;line-height:1.25;margin:.2em 0 .3em;text-wrap:balance}
 h2{font-family:var(--display);font-size:1.35em;margin:0 0 12px;text-wrap:balance}
 .lead{color:var(--muted);max-width:62ch;margin:0}
+.ghl{margin:12px 0 0;font-size:.88em;color:var(--muted);overflow-wrap:anywhere}.ghl a{color:var(--teal);font-family:var(--mono)}
 .result{display:inline-block;margin-top:12px;background:var(--teal-soft);color:var(--teal);border-radius:6px;padding:4px 10px;font-size:.88em;font-weight:600}
 section{margin-top:36px}
 .note{color:var(--muted);font-size:.92em;max-width:70ch}
@@ -68,8 +69,9 @@ footer a{color:var(--teal)}
 <header class="hero">
 <div class="eyebrow">P-Tech [서식5] 최종보고서 · 설정 안내</div>
 <h1>Claude 프로젝트로 최종보고서 도우미 만들기</h1>
-<p class="lead">Claude 프로젝트에 지침과 소스를 넣어 두면, 학습자는 입력양식만 채워 [서식5] 최종보고서 PDF를 바로 받을 수 있습니다.</p>
+<p class="lead">Claude 프로젝트에 지침과 소스를 넣어 두면, 사용자는 입력양식만 채워 [서식5] 최종보고서 PDF를 바로 받을 수 있습니다.</p>
 <span class="result">PDF 자동 생성 · 사진 자동 배치</span>
+<p class="ghl">키트 내려받기: <a href="https://github.com/eunjae-1004/ej_share/tree/main/ptech-report-kit" target="_blank" rel="noopener">https://github.com/eunjae-1004/ej_share/tree/main/ptech-report-kit</a></p>
 </header>
 <section><h2>준비물</h2>
 <p class="note">강사가 배포한 키트(또는 GitHub에서 내려받은 ZIP)의 「Claude」 폴더에 있는 파일입니다. claude.ai 무료 계정으로 만들 수 있습니다. 무료 계정은 프로젝트를 최대 5개까지 만들 수 있고, 사용량 한도가 있습니다.</p>
@@ -79,18 +81,18 @@ footer a{color:var(--teal)}
 <div><h2>② 보고서 작성 (매번)</h2><ol class="steps"><li><div><span class="st">채팅 시작</span><span class="sd">프로젝트 안에서 새 채팅을 열고 <b>시작</b>이라고 입력합니다. 안내문과 입력양식이 나옵니다.</span></div></li><li><div><span class="st">입력양식 채우기</span><span class="sd">입력양식의 <b>복사</b> 버튼을 눌러 채팅창에 붙여 넣고 채웁니다. 모르는 칸은 비워 두면 업종별 예시문으로 작성됩니다.</span></div></li><li><div><span class="st">파일 첨부</span><span class="sd"><b>+</b> 버튼으로 <b>첨부_PDF생성코드.txt</b>와 (있으면) 실습·현장 사진 최대 4장을 첨부하고 보냅니다.</span></div></li><li><div><span class="st">초안 확인</span><span class="sd">초안을 읽고 고칠 곳을 말로 요청합니다. 예: "음슴체로", "더 길게", "B 사례로 바꿔 주세요"</span></div></li><li><div><span class="st">PDF 받기</span><span class="sd"><b>PDF로 만들어 주세요</b>라고 입력하고, 만들어진 PDF를 내려받아 확인한 뒤 제출합니다.</span></div></li></ol></div>
 </section>
 <section><h2>지침 문구</h2><p class="note">아래 내용을 그대로 복사해 지침 칸에 붙여 넣으세요.</p>
-<div class="copybox"><button class="copy" type="button" data-target="jc">복사</button><pre id="jc">너는 원주폴리텍대학 P-Tech 학습자의 「[서식5] 최종보고서」 작성 도우미다.
+<div class="copybox"><button class="copy" type="button" data-target="jc">복사</button><pre id="jc">너는 원주폴리텍대학 P-Tech 「[서식5] 최종보고서」 작성 도우미다.
 
 1. 첫 메시지에는 「소스1_작성규칙.md」의 [시작 안내문]과 입력양식을 보여 준다.
 2. 소스1(작성 절차·원칙·PDF 생성), 소스2(작성 스타일), 소스3(업종별 예시문)을 반드시 그대로 따른다.
-3. 교과목 자료는 학습자가 고른 과목만 쓴다: 자재관리 → 소스4, 현장제어 → 소스5.
+3. 교과목 자료는 사용자가 고른 과목만 쓴다: 자재관리 → 소스4, 현장제어 → 소스5.
 4. 초안을 먼저 보여 주고, &quot;PDF로 만들어 주세요&quot;라는 승인 후에만 「첨부_PDF생성코드.txt」로 PDF를 만든다.
-5. 학습자가 말하지 않은 수치·회사 사실은 지어내지 않는다.
-6. 학습자는 AI가 처음인 재직자다. 쉬운 말로 짧게 안내하고, 코드나 기술 설명은 하지 않는다.</pre></div></section>
+5. 사용자가 말하지 않은 수치·회사 사실은 지어내지 않는다.
+6. 사용자는 AI가 처음인 재직자다. 쉬운 말로 짧게 안내하고, 코드나 기술 설명은 하지 않는다.</pre></div></section>
 <section><h2>처리가 안 될 때</h2><p class="note">아래 상황이 생기면 도우미가 안내문을 보여 줍니다. 안내대로 하면 됩니다.</p>
-<div class="tw"><table class="fail"><thead><tr><th>상황</th><th>나오는 안내</th><th>학습자가 할 일</th></tr></thead><tbody><tr><td>코드 파일을 첨부하지 않았을 때</td><td>「첨부_PDF생성코드.txt」를 첨부해 달라는 안내</td><td>+ 버튼으로 파일 첨부 후 &quot;PDF로 만들어 주세요&quot; 다시 입력</td></tr><tr><td>PDF에 한글 글꼴을 넣지 못했을 때</td><td>글꼴 파일 첨부 또는 Word 대체 안내</td><td>NanumGothic.ttf 첨부, 또는 &quot;Word로 만들어 주세요&quot; 입력</td></tr><tr><td>Word로 대체된 경우</td><td>Word 파일과 PDF 저장 방법 안내</td><td>Word에서 파일 → 다른 이름으로 저장 → PDF</td></tr><tr><td>사진이 열리지 않을 때</td><td>해당 사진을 JPG로 다시 첨부하라는 안내</td><td>JPG로 저장(또는 캡처) 후 재첨부, 또는 &quot;사진 빼고 만들어 주세요&quot;</td></tr><tr><td>파일 생성 기능이 꺼져 있을 때</td><td>설정에서 기능을 켜라는 안내</td><td>설정 → 기능 → 코드 실행 및 파일 생성 켜기</td></tr><tr><td>사용량 한도 메시지가 나올 때</td><td>Claude 화면의 한도 안내(시스템 메시지)</td><td>표시된 시간 이후 같은 채팅에서 이어서 진행</td></tr></tbody></table></div></section>
-<section><h2>세 플랫폼 비교</h2><div class="tw"><table><thead><tr><th>구분</th><th class="me">Claude 프로젝트</th><th class="">ChatGPT 프로젝트</th><th class="">Gemini Gem</th></tr></thead><tbody><tr><td>결과물</td><td class="me">PDF 파일 자동 생성</td><td class="">PDF 생성(한글 글꼴 없으면 Word로 대체)</td><td class="">Google 문서로 내보낸 뒤 PDF로 저장</td></tr><tr><td>사진 넣기</td><td class="me">자동 배치</td><td class="">자동 배치</td><td class="">Google 문서에서 직접 삽입</td></tr><tr><td>준비 파일</td><td class="me">지침 + 소스 5개 + 첨부 코드</td><td class="">지침 + 파일 2개 (+ 글꼴)</td><td class="">지침 + 소스 5개</td></tr><tr><td>무료 계정 주의</td><td class="me">사용량 한도, 프로젝트 5개</td><td class="">프로젝트 파일 수·하루 업로드 제한(확인 필요)</td><td class="">Gem 만들기는 PC 웹에서만</td></tr><tr><td>추천</td><td class="me">기본 권장(가장 단계가 적음)</td><td class="">ChatGPT를 이미 쓰는 학습자</td><td class="">Google 문서에 익숙한 학습자</td></tr></tbody></table></div></section>
-<footer>메뉴 이름과 무료 계정 제한은 2026년 11월 8일 기준 공개 자료로 확인했으며, 화면이나 정책은 바뀔 수 있습니다.<br>참고: <a href="https://support.claude.com/en/articles/9519177" target="_blank" rel="noopener">Claude 도움말 – 프로젝트 만들기</a> · <a href="https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude" target="_blank" rel="noopener">Claude 도움말 – 파일 만들기</a></footer>
+<div class="tw"><table class="fail"><thead><tr><th>상황</th><th>나오는 안내</th><th>사용자가 할 일</th></tr></thead><tbody><tr><td>코드 파일을 첨부하지 않았을 때</td><td>「첨부_PDF생성코드.txt」를 첨부해 달라는 안내</td><td>+ 버튼으로 파일 첨부 후 &quot;PDF로 만들어 주세요&quot; 다시 입력</td></tr><tr><td>PDF에 한글 글꼴을 넣지 못했을 때</td><td>글꼴 파일 첨부 또는 Word 대체 안내</td><td>NanumGothic.ttf 첨부, 또는 &quot;Word로 만들어 주세요&quot; 입력</td></tr><tr><td>Word로 대체된 경우</td><td>Word 파일과 PDF 저장 방법 안내</td><td>Word에서 파일 → 다른 이름으로 저장 → PDF</td></tr><tr><td>사진이 열리지 않을 때</td><td>해당 사진을 JPG로 다시 첨부하라는 안내</td><td>JPG로 저장(또는 캡처) 후 재첨부, 또는 &quot;사진 빼고 만들어 주세요&quot;</td></tr><tr><td>파일 생성 기능이 꺼져 있을 때</td><td>설정에서 기능을 켜라는 안내</td><td>설정 → 기능 → 코드 실행 및 파일 생성 켜기</td></tr><tr><td>사용량 한도 메시지가 나올 때</td><td>Claude 화면의 한도 안내(시스템 메시지)</td><td>표시된 시간 이후 같은 채팅에서 이어서 진행</td></tr></tbody></table></div></section>
+<section><h2>세 플랫폼 비교</h2><div class="tw"><table><thead><tr><th>구분</th><th class="me">Claude 프로젝트</th><th class="">ChatGPT 프로젝트</th><th class="">Gemini Gem</th></tr></thead><tbody><tr><td>결과물</td><td class="me">PDF 파일 자동 생성</td><td class="">PDF 생성(한글 글꼴 없으면 Word로 대체)</td><td class="">고정 양식 HTML → 브라우저에서 PDF 저장</td></tr><tr><td>사진 넣기</td><td class="me">자동 배치</td><td class="">자동 배치</td><td class="">Word·Google 문서로 옮겨 직접 삽입</td></tr><tr><td>준비 파일</td><td class="me">지침 + 소스 5개 + 첨부 코드</td><td class="">지침 + 파일 2개 (+ 글꼴)</td><td class="">지침 + 소스 6개</td></tr><tr><td>무료 계정 주의</td><td class="me">사용량 한도, 프로젝트 5개</td><td class="">프로젝트 파일 수·하루 업로드 제한(확인 필요)</td><td class="">Gem 만들기는 PC 웹에서만</td></tr><tr><td>추천</td><td class="me">기본 권장(가장 단계가 적음)</td><td class="">ChatGPT를 이미 쓰는 사용자</td><td class="">Google 문서에 익숙한 사용자</td></tr></tbody></table></div></section>
+<footer>키트 내려받기(GitHub): <a href="https://github.com/eunjae-1004/ej_share/tree/main/ptech-report-kit" target="_blank" rel="noopener">https://github.com/eunjae-1004/ej_share/tree/main/ptech-report-kit</a><br>메뉴 이름과 무료 계정 제한은 2026년 11월 8일 기준 공개 자료로 확인했으며, 화면이나 정책은 바뀔 수 있습니다.<br>참고: <a href="https://support.claude.com/en/articles/9519177" target="_blank" rel="noopener">Claude 도움말 – 프로젝트 만들기</a> · <a href="https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude" target="_blank" rel="noopener">Claude 도움말 – 파일 만들기</a></footer>
 </div>
 <script>
 document.querySelectorAll('.copy').forEach(function(b){b.addEventListener('click',function(){var t=document.getElementById(b.dataset.target).innerText;var done=function(){b.textContent='복사됨';setTimeout(function(){b.textContent='복사'},1600)};
