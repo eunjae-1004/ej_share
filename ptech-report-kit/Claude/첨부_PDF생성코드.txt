@@ -8,7 +8,9 @@
   (선택) 이미지: [{"파일": "/mnt/user-data/uploads/사진1.jpg", "캡션": "자재 보관 랙 현황", "위치": "현상"}, ...]
     위치 값: "상세:1-1"처럼 Ⅰ장 단원번호 / "문제해결경험" / "현상" / "원인" / "개선방안" / "기대효과" / "실무비교" / "소감"
     (위치가 없거나 틀리면 "문제해결경험" 아래에 넣는다. 그림 번호 [그림 1]…는 자동으로 붙는다.)
-교과목·요약문 1~2·Ⅰ장(개요/프로세스/상세내용)은 아래 MODULES에서 자동으로 채운다.
+교과목·요약문 1~2·교육 프로세스는 아래 MODULES에서 자동으로 채운다.
+  (권장) 개요(문자열), 상세내용[{제목, 항목:[{소제목, 정리, 실습, 적용}]}]을 JSON에 넣으면
+  사용자가 가공한 Ⅰ장으로 출력한다(목차 6단계: Ⅰ.→1.→1)→(1)→1-1.→가·나·다). 없으면 MODULES 원문 요약을 쓴다.
 """
 import json, sys, os, glob
 from reportlab.lib.pagesizes import A4
@@ -480,6 +482,8 @@ def init(text):
         "body": S("body", leftIndent=8, spaceAfter=3), "bul": S("bul", leftIndent=18, firstLineIndent=-8, spaceAfter=2),
         "toc": S("toc", size=11, leading=17),
         "toc0": S("toc0", font=FB, size=12.5, leading=24, spaceBefore=4),
+        "h5": S("h5", keepWithNext=1, font=FB, size=10, leading=15, spaceBefore=3, leftIndent=12),
+        "body2": S("body2", leftIndent=22, spaceAfter=3),
         "lab": S("lab", font=FB, size=10, leading=15, spaceBefore=4, leftIndent=8, textColor=colors.HexColor("#0F6B69")),
         "cap": S("cap", size=9.5, leading=14, alignment=TA_CENTER),
     })
@@ -522,6 +526,11 @@ def body_story(d):
         s.append(P(sec["제목"], "h3"))
         for it in sec["항목"]:
             s.append(P(it["소제목"], "h4"))
+            if it.get("정리"):  # 사용자가 가공해 쓴 단원 내용 (6단계: 가·나·다)
+                for lab, key in [("가. 핵심 내용 정리", "정리"), ("나. 실습 과정", "실습"), ("다. 업무 적용", "적용")]:
+                    if it.get(key): s += [P(lab, "h5"), P(it[key], "body2")]
+                s += f("상세:" + it["소제목"].split(".")[0].strip())
+                continue
             if "내용" in it: s += bullets(it["내용"])
             if it.get("목표"): s += [P("학습목표", "lab")] + bullets(it["목표"], "•")
             if it.get("개념"): s += [P("핵심 개념", "lab")] + bullets(it["개념"])
@@ -559,13 +568,15 @@ def front_story(d, body_pages):
     toc = [("Ⅰ. 교육업무", 0), ("1. 교육개요", 1), ("1) 개요", 2), ("2) 교육 프로세스", 2), ("3) 교육 상세내용", 2)]
     for sec in d["상세내용"]:
         toc.append((sec["제목"], 3))
-        toc += [(it["소제목"], 4) for it in sec["항목"]]
+        for it in sec["항목"]:
+            toc.append((it["소제목"], 4))
+            if it.get("정리"): toc.append(("가. 핵심 내용 정리   나. 실습 과정   다. 업무 적용", 5))
     toc += [("2. 문제해결 경험", 1), ("Ⅱ. 문제해결 제안서(또는 사례)", 0), ("1. 문제점/차이점 도출", 1),
             ("1) 현상  2) 원인  3) 개선 방안  4) 기대 효과", 2), ("2. 실무와의 비교", 1),
             ("Ⅲ. 소감 및 계획", 0), ("1. 소감", 1), ("2. 향후 계획", 1)]
     return [P("[서식5] 최종보고서", "form"), Spacer(1, 8), P("최종보고서", "title"), Spacer(1, 6),
             P(d["작성일"], "date"), Spacer(1, 12), info, Spacer(1, 12), box, PageBreak(),
-            P("- 목 차 -", "title"), Spacer(1, 14)] + [Paragraph(esc(t), st["toc0" if lv == 0 else "toc"], ) if lv == 0 else Paragraph(esc(t), ParagraphStyle("t%d" % lv, parent=st["toc"], leftIndent=14 * lv, fontSize=11 if lv < 3 else 10, leading=17 if lv < 3 else 15)) for t, lv in toc] + [PageBreak()]
+            P("- 목 차 -", "title"), Spacer(1, 14)] + [Paragraph(esc(t), st["toc0" if lv == 0 else "toc"], ) if lv == 0 else Paragraph(esc(t), ParagraphStyle("t%d" % lv, parent=st["toc"], leftIndent=14 * lv, fontSize=11 if lv < 3 else (10 if lv < 5 else 9), leading=17 if lv < 3 else (15 if lv < 5 else 13))) for t, lv in toc] + [PageBreak()]
 
 def footer(c, doc):
     c.saveState(); c.setFont(F, 9); c.drawCentredString(A4[0] / 2, 12 * mm, f"- {doc.page} -"); c.restoreState()
